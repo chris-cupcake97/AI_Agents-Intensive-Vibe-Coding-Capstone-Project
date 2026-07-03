@@ -103,7 +103,8 @@ flowchart TD
 ## Setup
 
 The current implementation includes the planning docs, fixture-backed core verification engine,
-eval harness, FastAPI backend API, and MCP-style tool layer in offline fixture mode.
+eval harness, FastAPI backend API, MCP-style tool layer, and ADK-style agent layer in offline
+fixture mode.
 
 Install API dependencies:
 
@@ -154,6 +155,12 @@ Run the MCP-style tool smoke test:
 python scripts/smoke_tools.py
 ```
 
+Run the ADK-style agent smoke test:
+
+```bash
+python scripts/smoke_agents.py
+```
+
 List available tools:
 
 ```bash
@@ -183,6 +190,19 @@ The tool layer lives in `scholarproof/mcp_server/` and exposes structured JSON t
 This demonstrates the Kaggle MCP Server / tool interoperability concept by giving agents a bounded
 tool surface with manifest metadata, input schemas, output schemas, and safety notes. The current
 limitation is intentional: tools run in fixture/offline mode only, with no live web search.
+
+## ADK-Style Agent Layer
+
+The agent layer lives in `scholarproof/agents/` and demonstrates a bounded multi-agent workflow:
+
+- `RootOrchestratorAgent` accepts a profile and search query, calls Finder, routes candidates to Verifier, and groups verified results.
+- `FinderAgent` calls `search_scholarships` and returns structured candidates only. It never decides eligibility.
+- `VerifierAgent` calls the MCP tools in order: fetch, classify, injection check, extract, match, verdict, audit.
+- `ClarificationEmailSkillWrapper` drafts emails only for `unclear` verification results and never sends them.
+
+This demonstrates the Kaggle Agent / multi-agent system concept while keeping the capstone scope
+focused. The current limitation is intentional: agents run in fixture/offline mode only, with no
+live web search or application submission.
 
 ## Evaluation
 
