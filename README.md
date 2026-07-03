@@ -161,6 +161,38 @@ Run the ADK-style agent smoke test:
 python scripts/smoke_agents.py
 ```
 
+Run the frontend:
+
+```bash
+cd scholarproof/ui
+npm.cmd install
+npm.cmd run dev
+```
+
+The frontend starts at:
+
+```text
+http://127.0.0.1:5173
+```
+
+Optional frontend build check:
+
+```bash
+cd scholarproof/ui
+npm.cmd run build
+```
+
+UI smoke flow:
+
+1. Create a profile.
+2. Search scholarships.
+3. Check eligibility.
+4. View evidence.
+5. Draft an email for a Needs Clarification case.
+6. Save a result.
+
+Screenshot capture instructions are in `docs/frontend_screenshots.md`.
+
 List available tools:
 
 ```bash
@@ -203,6 +235,21 @@ The agent layer lives in `scholarproof/agents/` and demonstrates a bounded multi
 This demonstrates the Kaggle Agent / multi-agent system concept while keeping the capstone scope
 focused. The current limitation is intentional: agents run in fixture/offline mode only, with no
 live web search or application submission.
+
+## Frontend UI
+
+The user-facing UI lives in `scholarproof/ui/` and uses Vite, React, TypeScript, and local CSS.
+It connects to the FastAPI backend in fixture mode and includes:
+
+- Profile Wizard.
+- Find Scholarships.
+- Eligibility Checker.
+- Evidence Panel.
+- Draft Clarification Email.
+- Saved Results.
+
+The frontend does not add authentication, live web search, document upload, email sending, portal
+autofill, or application submission.
 
 ## Evaluation
 
