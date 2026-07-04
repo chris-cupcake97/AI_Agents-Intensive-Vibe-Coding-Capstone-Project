@@ -1,4 +1,4 @@
-# ScholarProof
+# FundMyDegree
 
 Find scholarships that are real and right for you.
 
