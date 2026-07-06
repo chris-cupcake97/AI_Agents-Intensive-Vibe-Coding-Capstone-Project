@@ -13,6 +13,11 @@ from .models import (
     student_label_for,
     utc_now_iso,
 )
+from .destination import (
+    destination_is_missing,
+    destination_supported,
+    target_regions_summary,
+)
 
 
 def _matched_required_rule_types(matched_rules: list[EligibilityRule]) -> set[str]:
@@ -40,6 +45,45 @@ def generate_verdict(
 ) -> VerificationResult:
     """Generate a conservative verdict with hard stops before `eligible`."""
 
+    matched_rules = list(matched_rules)
+    blocking_rules = list(blocking_rules)
+    unclear_rules = list(unclear_rules)
+
+    if profile.target_regions:
+        target_summary = target_regions_summary(profile.target_regions)
+        evidence_source = source.url or candidate.candidate_url
+        if destination_is_missing(candidate.country):
+            unclear_rules.append(
+                EligibilityRule(
+                    rule_type="study_destination",
+                    requirement_text=(
+                        "Scholarship destination must be clear before it can be treated "
+                        f"as a fit for: {target_summary}."
+                    ),
+                    evidence_text="",
+                    status="unclear",
+                    source_url=evidence_source,
+                    confidence=0.0,
+                )
+            )
+        elif not destination_supported(candidate.country, profile.target_regions):
+            blocking_rules.append(
+                EligibilityRule(
+                    rule_type="study_destination",
+                    requirement_text=(
+                        "Scholarship destination must match the student's selected "
+                        f"study destination: {target_summary}."
+                    ),
+                    evidence_text=(
+                        f"Candidate country is {candidate.country}; selected "
+                        f"destination is {target_summary}."
+                    ),
+                    status="blocking",
+                    source_url=evidence_source,
+                    confidence=1.0,
+                )
+            )
+
     missing_rules = missing_required_rules(matched_rules)
 
     if not source.url or not source.is_official:
@@ -47,7 +91,10 @@ def generate_verdict(
         reason = "No acceptable official source proves the scholarship rules."
     elif blocking_rules:
         status = "not_eligible"
-        reason = "An official source contains at least one blocking eligibility rule."
+        if any(rule.rule_type == "study_destination" for rule in blocking_rules):
+            reason = "The scholarship is outside the student's selected study destinations."
+        else:
+            reason = "An official source contains at least one blocking eligibility rule."
     elif security_flags:
         status = "unclear"
         reason = "Official source was found, but the page contains prompt-injection-like text."

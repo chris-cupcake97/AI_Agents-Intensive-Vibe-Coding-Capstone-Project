@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 from uuid import uuid4
 
+from fundmydegree.core.destination import destination_supported
 from fundmydegree.core.fixture_flow import verify_fixture_case
 from fundmydegree.core.models import utc_now_iso
 
@@ -82,8 +83,11 @@ def search_scholarships(
     data_store: InMemoryStore = store,
 ) -> dict[str, Any]:
     profile_id = str(request.get("profile_id", "")).strip()
+    profile = None
     if profile_id and profile_id not in data_store.profiles:
         raise ApiError(404, f"Profile not found: {profile_id}.")
+    if profile_id:
+        profile = data_store.profiles[profile_id]
 
     query = str(request.get("query", "")).strip().lower()
     candidates: list[dict[str, Any]] = []
@@ -99,6 +103,11 @@ def search_scholarships(
             ]
         ).lower()
         if query and query not in searchable:
+            continue
+        if profile and not destination_supported(
+            candidate.get("country", ""),
+            list(profile.get("target_regions", [])),
+        ):
             continue
 
         candidate["fixture_id"] = case["id"]

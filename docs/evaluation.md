@@ -79,6 +79,7 @@ Additional smoke tests cover:
 - Internal tool registry behavior.
 - MCP-compatible stdio server initialization, tool listing, and tool calling.
 - Agent orchestration and verifier sequence.
+- Product logic guardrails: destination filtering, changed-profile safety, aggregator rejection, prompt-injection handling, and draft-only email behavior.
 - Deployment-facing `/health`, `/docs`, and static frontend serving.
 
 ## Fixture Mode

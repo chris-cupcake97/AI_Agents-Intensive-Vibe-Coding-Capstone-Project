@@ -27,12 +27,20 @@ FundMyDegree was built to make that uncertainty visible earlier. It is meant to 
 ## What FundMyDegree Does
 
 - The student fills a lightweight study profile.
-- The system shows scholarship matches from fixture/offline demo data.
+- The system shows scholarship candidates from fixture/offline demo data.
 - The student opens a scholarship to see a fit check.
 - The system explains what fits the profile, what still needs confirmation, and what may block eligibility.
 - The student can save a scholarship for later.
 - If the result is unclear, the system can draft a clarification email.
 - The app never sends the email automatically.
+
+## What Search Means In This Prototype
+
+FundMyDegree is not a giant scholarship database. The current Kaggle prototype uses curated fixture data to demonstrate an agentic workflow: starting from a student profile, finding relevant demo candidates, checking source trust and eligibility rules, and returning a conservative verdict with evidence-backed explanations.
+
+It does not search every scholarship online. It does not scrape live sites. It does not call external scholarship APIs. The search path loads local fixture candidates from `evals/eval_cases.json` and `fixtures/scholarships/`, then filters them by text query and selected study destination where a profile is available.
+
+For the full behavior audit, see [docs/how_search_works.md](docs/how_search_works.md) and [docs/product_logic_audit.md](docs/product_logic_audit.md).
 
 ## Why This Is Different From A Normal Scholarship List
 
@@ -151,6 +159,8 @@ For the capstone submission, FundMyDegree demonstrates the required concepts thr
 
 - Fixture/offline demo mode only.
 - No live global scholarship search yet.
+- No live website scraping in the current version.
+- No external scholarship API connector in the current version.
 - No account system yet.
 - No persistent database yet.
 - No payment or subscription system.
@@ -262,6 +272,7 @@ python -B scripts/smoke_api.py
 python -B scripts/smoke_tools.py
 python -B scripts/smoke_mcp_protocol.py
 python -B scripts/smoke_agents.py
+python -B scripts/smoke_product_logic.py
 python -B scripts/smoke_deploy.py
 ```
 
