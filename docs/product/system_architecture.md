@@ -40,7 +40,7 @@ Do not create separate agents for every small step.
 
 ### Finder Agent
 
-- Searches for candidate scholarships.
+- Searches fixture/offline candidate scholarships.
 - Returns structured candidate data.
 - Does not decide eligibility.
 - Does not call anything "Strong Match".

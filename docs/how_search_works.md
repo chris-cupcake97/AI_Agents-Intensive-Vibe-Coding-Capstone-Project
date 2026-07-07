@@ -49,7 +49,12 @@ Destination is handled in two places:
 - Search filters out country-specific fixtures that are outside the student's selected study destinations.
 - Verification also refuses an eligible verdict if a manually verified candidate is outside the student's selected destinations.
 
-Nationality, residence, fee status, degree level, field, funding need, and intake are handled during verification. The fixture rules contain structured evidence and a curated starting status. The matcher then applies conservative profile guards so a changed profile cannot blindly inherit a fixture's old matched label.
+Nationality, residence, fee status, degree level, field, funding need, and
+intake are handled during verification. The fixture rules contain structured
+evidence and a curated starting status.
+
+The matcher then applies conservative profile guards so a changed profile cannot
+blindly inherit a fixture's old matched label.
 
 Examples:
 

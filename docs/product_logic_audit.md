@@ -14,18 +14,72 @@ The worst failure is a false `eligible` or false Strong Match.
 
 The project is a fixture/offline capstone prototype. It does not search the live web, scrape scholarship pages, call external APIs, or cover every scholarship opportunity.
 
-The main issue found in this pass was that fixture rule labels were previously trusted too strongly when a user changed their profile or manually verified a candidate outside search. That could allow a candidate from the fixture's original profile to remain `eligible` for a changed profile. This pass added conservative guards for destination mismatch and key profile mismatches.
+The main issue found in this pass was that fixture rule labels were previously
+trusted too strongly when a user changed their profile or manually verified a
+candidate outside search.
+
+That could allow a candidate from the fixture's original profile to remain
+`eligible` for a changed profile. This pass added conservative guards for
+destination mismatch and key profile mismatches.
 
 ## Issues And Fixes
 
-| Issue | File/path | Severity | Why it matters | Recommended fix | Fixed in this pass |
-|---|---|---:|---|---|---|
-| Search returned all fixture candidates unless a text query was used, even when the student selected one destination. | `fundmydegree/api/services.py` | High | A UK-only profile could see Germany-only or Finland-only fixtures as candidates. | Filter fixture candidates by profile target destinations. | Yes |
-| Manual verification could bypass destination search filtering. | `fundmydegree/core/verdict_engine.py` | High | A Germany-only candidate could be manually verified for a UK-only profile and still become `eligible`. | Add a verifier-level destination guard before eligible can be returned. | Yes |
-| Missing destination evidence was not explicitly downgraded. | `fundmydegree/core/verdict_engine.py` | Medium | A candidate with unclear country should not be treated as a strong fit for a selected destination. | Add an unclear `study_destination` rule when destination is missing. | Yes |
-| Profile matching relied mainly on curated fixture statuses. | `fundmydegree/core/rule_extraction.py` | High | Changing nationality, degree level, field, funding need, or intake could inherit a stale fixture "matched" label. | Add conservative profile guards that downgrade unsupported matched rules to `unclear` or `blocking`. | Yes |
-| Public docs needed an explicit explanation of search behavior. | `README.md`, `docs/how_search_works.md` | Medium | The word "search" can imply live web coverage if not explained. | Document fixture/offline search plainly. | Yes |
-| No dedicated regression test covered destination filtering and profile-change safety. | `scripts/smoke_product_logic.py` | Medium | Existing evals checked golden fixture cases but not changed-profile edge cases. | Add focused product-logic smoke checks. | Yes |
+### Search Returned Too Many Fixture Candidates
+
+- File/path: `fundmydegree/api/services.py`
+- Severity: high
+- Why it matters: a UK-only profile could see Germany-only or Finland-only
+  fixtures as candidates.
+- Recommended fix: filter fixture candidates by profile target destinations.
+- Fixed in this pass: yes.
+
+### Manual Verification Could Bypass Destination Filtering
+
+- File/path: `fundmydegree/core/verdict_engine.py`
+- Severity: high
+- Why it matters: a Germany-only candidate could be manually verified for a
+  UK-only profile and still become `eligible`.
+- Recommended fix: add a verifier-level destination guard before eligible can
+  be returned.
+- Fixed in this pass: yes.
+
+### Missing Destination Evidence Was Not Explicitly Downgraded
+
+- File/path: `fundmydegree/core/verdict_engine.py`
+- Severity: medium
+- Why it matters: a candidate with unclear country should not be treated as a
+  strong fit for a selected destination.
+- Recommended fix: add an unclear `study_destination` rule when destination is
+  missing.
+- Fixed in this pass: yes.
+
+### Profile Matching Relied Mainly On Curated Fixture Statuses
+
+- File/path: `fundmydegree/core/rule_extraction.py`
+- Severity: high
+- Why it matters: changing nationality, degree level, field, funding need, or
+  intake could inherit a stale fixture "matched" label.
+- Recommended fix: add conservative profile guards that downgrade unsupported
+  matched rules to `unclear` or `blocking`.
+- Fixed in this pass: yes.
+
+### Public Docs Needed A Clear Search Explanation
+
+- File/path: `README.md`, `docs/how_search_works.md`
+- Severity: medium
+- Why it matters: the word "search" can imply live web coverage if not
+  explained.
+- Recommended fix: document fixture/offline search plainly.
+- Fixed in this pass: yes.
+
+### No Dedicated Regression Test Covered Product Logic Edge Cases
+
+- File/path: `scripts/smoke_product_logic.py`
+- Severity: medium
+- Why it matters: existing evals checked golden fixture cases but not
+  changed-profile edge cases.
+- Recommended fix: add focused product-logic smoke checks.
+- Fixed in this pass: yes.
 
 ## Category Review
 

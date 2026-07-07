@@ -4,9 +4,9 @@
 
 FundMyDegree
 
-## Tagline
+## Positioning Line
 
-Find scholarships that actually fit you.
+Evidence-backed scholarship fit checking for international students.
 
 ## Core Product
 
@@ -112,7 +112,7 @@ Student UI
 
 ### Finder Agent
 
-- Searches for candidate scholarships.
+- Searches fixture/offline candidate scholarships.
 - Returns structured candidate data.
 - Does not decide eligibility.
 - Does not call anything "Strong Match".
@@ -139,7 +139,7 @@ Student UI
 Tools return structured JSON:
 
 - `search_scholarships(profile, query)`
-- `fetch_page(url)`
+- `fetch_page(fixture_id)`
 - `classify_source(url)`
 - `extract_rules(page_text)`
 - `match_profile(profile, rules)`

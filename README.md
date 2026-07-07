@@ -1,10 +1,18 @@
 # FundMyDegree
 
-**Find scholarships that actually fit you.**
+**Evidence-backed scholarship fit checking for international students.**
 
 FundMyDegree is a scholarship matching and fit-checking prototype for international students.
 
-I built this from a problem I have personally faced as a Sri Lankan graduate trying to find a realistic path to study abroad. Scholarships can decide whether studying abroad is even possible, but finding the right ones is rarely as simple as searching a list. For the past two years, I have spent time opening scholarship links, university pages, and country-by-country funding pages, only to later realize that Sri Lankan students were not eligible, my degree level did not match, the scholarship was outdated, the funding was not enough, or the rules were too unclear to trust.
+I built this from a problem I have personally faced as a Sri Lankan graduate
+trying to find a realistic path to study abroad. Scholarships can decide
+whether studying abroad is even possible, but finding the right ones is rarely
+as simple as searching a list.
+
+For the past two years, I have spent time opening scholarship links, university
+pages, and country-by-country funding pages, only to later realize that Sri
+Lankan students were not eligible, my degree level did not match, the scholarship
+was outdated, the funding was not enough, or the rules were too unclear to trust.
 
 The question I wanted help answering was simple:
 
@@ -12,7 +20,10 @@ The question I wanted help answering was simple:
 Is this scholarship worth my time?
 ```
 
-FundMyDegree is my answer to that question. It does not try to be a giant global scholarship directory. It focuses on a smaller, more useful workflow: take a student profile, compare it against scholarship evidence, and explain what looks like a fit, what needs confirmation, and what may not be worth pursuing.
+FundMyDegree is my answer to that question. It does not try to be a giant global
+scholarship directory. It focuses on a smaller, more useful workflow: take a
+student profile, compare it against scholarship evidence, and explain what looks
+like a fit, what needs confirmation, and what may not be worth pursuing.
 
 This is a Kaggle AI Agents capstone prototype. It uses fixture/offline demo data so the project can be reviewed and tested reproducibly.
 
@@ -20,7 +31,13 @@ This is a Kaggle AI Agents capstone prototype. It uses fixture/offline demo data
 
 Most scholarship search tools give students more links. More links are useful only if the student can quickly understand whether those opportunities actually apply to them.
 
-As an international student from Sri Lanka, the painful part has not been only finding scholarship names. It has been checking the fine print: nationality rules, residence rules, degree level, subject restrictions, funding coverage, deadlines, and whether the source is official. A scholarship can look perfect in a search result and still be a poor use of time once the eligibility rules are checked properly.
+As an international student from Sri Lanka, the painful part has not been only
+finding scholarship names. It has been checking the fine print: nationality
+rules, residence rules, degree level, subject restrictions, funding coverage,
+deadlines, and whether the source is official.
+
+A scholarship can look perfect in a search result and still be a poor use of
+time once the eligibility rules are checked properly.
 
 FundMyDegree was built to make that uncertainty visible earlier. It is meant to help a student slow down at the right moment and ask: does this opportunity really fit my profile, or do I need to confirm something before investing hours into it?
 
@@ -36,9 +53,17 @@ FundMyDegree was built to make that uncertainty visible earlier. It is meant to 
 
 ## What Search Means In This Prototype
 
-FundMyDegree is not a giant scholarship database. The current Kaggle prototype uses curated fixture data to demonstrate an agentic workflow: starting from a student profile, finding relevant demo candidates, checking source trust and eligibility rules, and returning a conservative verdict with evidence-backed explanations.
+FundMyDegree is not a giant scholarship database. The current Kaggle prototype
+uses curated fixture data to demonstrate an agentic workflow: starting from a
+student profile, finding relevant demo candidates, checking source trust and
+eligibility rules, and returning a conservative verdict with evidence-backed
+explanations.
 
-It does not search every scholarship online. It does not scrape live sites. It does not call external scholarship APIs. The search path loads local fixture candidates from `evals/eval_cases.json` and `fixtures/scholarships/`, then filters them by text query and selected study destination where a profile is available.
+It does not search every scholarship online. It does not scrape live sites. It
+does not call external scholarship APIs. The search path loads local fixture
+candidates from `evals/eval_cases.json` and `fixtures/scholarships/`, then
+filters them by text query and selected study destination where a profile is
+available.
 
 For the full behavior audit, see [docs/how_search_works.md](docs/how_search_works.md) and [docs/product_logic_audit.md](docs/product_logic_audit.md).
 

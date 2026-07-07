@@ -4,7 +4,7 @@
 
 FundMyDegree helps international students find scholarships that match their profile, then shows what fits, what needs confirmation, and what may not be worth their time before they apply.
 
-Tagline: Find scholarships that actually fit you.
+Positioning line: Evidence-backed scholarship fit checking for international students.
 
 ## Main User
 

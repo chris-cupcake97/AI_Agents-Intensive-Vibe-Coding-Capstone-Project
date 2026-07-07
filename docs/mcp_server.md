@@ -58,4 +58,9 @@ passed: true
 
 ## Implementation Notes
 
-The official `mcp` Python SDK was not installed in the local environment during this pass, so the project includes a small direct JSON-RPC stdio implementation instead of adding a fragile dependency at the deadline. The smoke test proves the wrapper can initialize, list tools, and call an existing tool over stdio.
+The official `mcp` Python SDK was not installed in the local environment during
+this pass, so the project includes a small direct JSON-RPC stdio implementation
+instead of adding a fragile dependency at the deadline.
+
+The smoke test proves the wrapper can initialize, list tools, and call an
+existing tool over stdio.

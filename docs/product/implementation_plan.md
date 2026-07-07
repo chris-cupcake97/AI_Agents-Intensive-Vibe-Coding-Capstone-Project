@@ -16,7 +16,6 @@ fundmydegree/
   mcp_server/
   ui/
 specs/
-tests/
 deploy/
 ```
 
@@ -59,7 +58,7 @@ Use only:
 ## 5. Tool Registry / MCP-Compatible Wrapper Design
 
 - `search_scholarships(profile, query)`
-- `fetch_page(url)`
+- `fetch_page(fixture_id)`
 - `classify_source(url)`
 - `extract_rules(page_text)`
 - `match_profile(profile, rules)`
